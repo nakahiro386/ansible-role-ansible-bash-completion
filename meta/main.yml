@@ -1,0 +1,21 @@
+galaxy_info:
+  author: nakahiro386
+  description: Install Ansible bash completion
+
+  license: MIT
+
+  min_ansible_version: 2.3
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Ubuntu
+      versions:
+        - xenial
+
+  galaxy_tags:
+    - config
+    - system
+
+dependencies: []

@@ -1,0 +1,21 @@
+---
+# tasks file for nakahiro386.ansible-bash-completion
+- block:
+  - name: ansible-completion clone to "{{ ansible_bash_completion_clone_dir }}"
+    git:
+      repo: "{{ ansible_bash_completion_git_repo }}"
+      dest: "{{ ansible_bash_completion_clone_dir }}"
+      version: "{{ ansible_bash_completion_version }}"
+
+  - name: get bash-completion files
+    set_fact:
+      bash_completion_files: "{{ lookup('fileglob', ansible_bash_completion_clone_dir + '/*.bash') }}"
+
+  - name: create  symlink to "{{ ansible_bash_completion_install_dir }}"
+    file: src="{{ item }}"
+      dest="{{ ansible_bash_completion_install_dir }}/{{ item | basename }}"
+      state=link
+    with_items: "{{ bash_completion_files.split(',') }}"
+
+  tags:
+    - ansible-bash-completion
